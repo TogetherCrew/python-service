@@ -2,7 +2,7 @@ attrs==22.2.0
 dnspython==2.2.1
 exceptiongroup==1.1.0
 iniconfig==2.0.0
-numpy==1.20.0
+numpy==1.25.1
 packaging==23.0
 pluggy==1.0.0
 pymongo==4.3.3
@@ -13,6 +13,6 @@ python-dotenv==0.21.1
 six==1.16.0
 tomli==2.0.1
 pandas==2.0.3
+coverage==7.2.7
 networkx
 neo4j
-coverage
