@@ -41,7 +41,7 @@ services:
       - neo4j
       - rabbitmq
   redis:
-    image: "redis:alpine"
+    image: "redis:6.0.20-alpine"
     networks:
       - python_service_network
   mongo:
@@ -59,7 +59,7 @@ services:
     networks:
       - python_service_network
   neo4j:
-    image: "neo4j"
+    image: "neo4j:5.9.0"
     environment:
       - NEO4J_AUTH=neo4j/password
       - NEO4J_PLUGINS=["apoc", "graph-data-science"]
