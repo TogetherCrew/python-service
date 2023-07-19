@@ -6,8 +6,6 @@ services:
       context: .
       target: test
       dockerfile: Dockerfile
-    env_file:
-      - .env
     environment:
       - PORT=3000
       - MONGODB_HOST=mongo
