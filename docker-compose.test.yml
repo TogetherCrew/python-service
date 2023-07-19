@@ -41,11 +41,11 @@ services:
       - neo4j
       - rabbitmq
   redis:
-    image: "redis:6.0.20-alpine"
+    image: "redis:7.0.12-alpine"
     networks:
       - python_service_network
   mongo:
-    image: "mongo"
+    image: "mongo:6.0.8"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass
