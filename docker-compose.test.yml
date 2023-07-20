@@ -30,7 +30,7 @@ services:
       - SENTRY_DSN=sample_dsn
       - SENTRY_ENV=local
     volumes:
-      - ./coverage:/project/coverage
+      - ./:/project/coverage
     networks:
       - python_service_network
     depends_on:
