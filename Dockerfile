@@ -6,7 +6,10 @@ RUN pip3 install -r requirements.txt
 
 FROM base AS test
 RUN python3 -m coverage run -m pytest tests
-CMD ["python3", "-m", "coverage", "lcov" ,"-o", "coverage/coverage.lcov"]
+
+RUN chmod +x main.sh
+CMD ["./main.sh"]
+# CMD ["python3", "-m", "coverage", "lcov" ,"-o", "coverage/coverage.lcov"]
 
 FROM base AS prod-server
 CMD ["python3", "server.py"]
