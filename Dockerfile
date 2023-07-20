@@ -8,8 +8,5 @@ FROM base AS test
 RUN python3 -m coverage run -m pytest tests
 CMD ["python3", "-m", "coverage", "lcov" ,"-o", "coverage/lcov.info"]
 
-FROM base AS prod-server
+FROM base AS prod
 CMD ["python3", "server.py"]
-
-FROM base as prod-worker
-CMD ["python3", "worker.py"]
