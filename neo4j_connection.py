@@ -1,6 +1,8 @@
 import os
-from neo4j import GraphDatabase
+
 from dotenv import load_dotenv
+from neo4j import GraphDatabase
+
 load_dotenv()
 
 user = os.getenv("NEO4J_USER")
@@ -17,12 +19,12 @@ driver = GraphDatabase.driver(neo4j_url, auth=neo4j_auth)
 with GraphDatabase.driver(neo4j_url, auth=neo4j_auth) as driver:
     driver.verify_connectivity()
 
-def read(cypher, database = 'neo4j'):
 
-    records, summary, keys = driver.execute_query(cypher, database_= database)
+def read(cypher, database="neo4j"):
+    records, summary, keys = driver.execute_query(cypher, database_=database)
     return records, summary, keys
 
-def write(cypher, database = 'neo4j'):
-    
-    records, summary, keys = driver.execute_query(cypher, database_= database)
+
+def write(cypher, database="neo4j"):
+    records, summary, keys = driver.execute_query(cypher, database_=database)
     return summary
