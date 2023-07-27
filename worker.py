@@ -17,7 +17,7 @@ def worker_exception_handler(job, exc_type, exc_value, traceback):
 
 
 if __name__ == "__main__":
-    host = os.getenv("REDIS_HOST", "localhost")
+    host = os.getenv("REDIS_HOST", "")
     port = int(os.getenv("REDIS_PORT", 6379))
     password = os.getenv("REDIS_PASSWORD")
 
