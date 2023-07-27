@@ -1,11 +1,12 @@
+import logging
 import os
 
 import redis
 from dotenv import load_dotenv
 from rq import Worker
-import logging
 
 load_dotenv()
+
 
 def worker_exception_handler(job, exc_type, exc_value, traceback):
     logging.error(" ========= RQ Exception =========")
@@ -16,8 +17,8 @@ def worker_exception_handler(job, exc_type, exc_value, traceback):
 
 
 if __name__ == "__main__":
-    host = os.getenv("REDIS_HOST")
-    port = os.getenv("REDIS_PORT")
+    host = os.getenv("REDIS_HOST", "localhost")
+    port = int(os.getenv("REDIS_PORT", 6379))
     password = os.getenv("REDIS_PASSWORD")
 
     logging.basicConfig()
@@ -25,7 +26,9 @@ if __name__ == "__main__":
 
     redis_connection = redis.Redis(host=host, port=port, password=password)
     worker = Worker(
-        queues=["default"], connection=redis_connection, exception_handlers=worker_exception_handler
+        queues=["default"],
+        connection=redis_connection,
+        exception_handlers=worker_exception_handler,
     )
     try:
         worker.work(with_scheduler=True, max_jobs=1)
