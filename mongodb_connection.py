@@ -1,7 +1,7 @@
 import os
 
-from pymongo import MongoClient
 from dotenv import load_dotenv
+from pymongo import MongoClient
 
 load_dotenv()
 
@@ -11,5 +11,5 @@ user = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
 
-mongodb_connection = f"mongodb://{user}:{password}@{host}:{port}/{db_name}",
+mongodb_connection = f"mongodb://{user}:{password}@{host}:{port}/{db_name}"
 client = MongoClient(host=mongodb_connection)
