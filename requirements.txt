@@ -1,7 +1,9 @@
 async-timeout==4.0.2
 attrs==22.2.0
+cffi==1.15.1
 click==8.1.6
 coverage==7.2.7
+cryptography==41.0.2
 dnspython==2.2.1
 exceptiongroup==1.1.0
 iniconfig==2.0.0
@@ -11,6 +13,7 @@ numpy==1.25.1
 packaging==23.0
 pandas==2.0.3
 pluggy==1.0.0
+pycparser==2.21
 pymongo==4.3.3
 pytest==7.2.0
 python-dateutil==2.8.2
@@ -20,4 +23,5 @@ redis==4.6.0
 rq==1.15.1
 six==1.16.0
 tomli==2.0.1
+types-pyOpenSSL==23.2.0.2
 tzdata==2023.3
