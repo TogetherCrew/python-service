@@ -29,17 +29,23 @@ services:
       - SAGA_DB_COLLECTION=saga
       - SENTRY_DSN=sample_dsn
       - SENTRY_ENV=local
-    volumes:
-      - ./coverage:/project/coverage
     networks:
       - python_service_network
+    volumes:
+      - ./coverage:/project/coverage
     depends_on:
-      - redis
-      - mongo
-      - neo4j
-      - rabbitmq
+      mongo:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      rabbitmq: 
+        condition: service_healthy
+      redis:
+        condition: service_healthy
   redis:
     image: "redis:7.0.12-alpine"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
     networks:
       - python_service_network
   mongo:
@@ -47,13 +53,12 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass
-    networks:
-      - python_service_network
-  rabbitmq:
-    image: "rabbitmq:3-management-alpine"
-    environment:
-      - RABBITMQ_DEFAULT_USER=root
-      - RABBITMQ_DEFAULT_PASS=pass
+    healthcheck:
+      test: echo 'db.stats().ok' | mongosh localhost:27017/test --quiet
+      interval: 60s
+      timeout: 10s
+      retries: 2
+      start_period: 40s
     networks:
       - python_service_network
   neo4j:
@@ -62,6 +67,25 @@ services:
       - NEO4J_AUTH=neo4j/password
       - NEO4J_PLUGINS=["apoc", "graph-data-science"]
       - NEO4J_dbms_security_procedures_unrestricted=apoc.*,gds.*
+    healthcheck:
+      test: ["CMD" ,"wget", "http://localhost:7474"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 2
+      start_period: 40s
+    networks:
+      - python_service_network
+  rabbitmq:
+    image: "rabbitmq:3-management-alpine"
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=pass
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 2
+      start_period: 40s
     networks:
       - python_service_network
 
